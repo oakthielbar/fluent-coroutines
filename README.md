@@ -10,7 +10,7 @@ Call `this.FluentCoroutine()` inside of any class that inherits from `MonoBehavi
 ```csharp
 public class ExampleFluentCoroutine : MonoBehaviour
 {
-	void Start()
+    void Start()
     {
     	this.FluentCoroutine()
             .WaitForSeconds(1f)
