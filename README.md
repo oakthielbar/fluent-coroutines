@@ -13,7 +13,7 @@ public class ExampleFluentCoroutine : MonoBehaviour
 	void Start()
     {
     	this.FluentCoroutine()
-        	.WaitForSeconds(1f)
+            .WaitForSeconds(1f)
             .Do(PrintMessage)
             .Finalize()
             .Execute();
