@@ -8,6 +8,9 @@ Add the contents of the Asset folder to your Unity3D project's Asset folder.
 Call `this.FluentCoroutine()` inside of any class that inherits from `MonoBehaviour` and chain a few calls to the available methods; once you've defined what you want the `FluentCoroutine` to do, call `Finalize()` to get the completed `FluentCoroutine`. When you want to run it, just call `Execute()` and it will run as a Unity3D Coroutine.
 
 ```csharp
+using UnityEngine;
+using FluentCoroutines;
+
 public class ExampleFluentCoroutine : MonoBehaviour
 {
     void Start()
