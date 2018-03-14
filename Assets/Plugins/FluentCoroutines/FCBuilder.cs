@@ -182,8 +182,14 @@ namespace FluentCoroutines
         /// <remarks>
         /// This adds a number of <see cref="WaitForFrame"/> instructions equal to the <paramref name="count"/>.
         /// </remarks>
-        public FCBuilder WaitForFrames(uint count)
+        public FCBuilder WaitForFrames(int count)
         {
+            if (count < 0)
+            {
+                Debug.LogWarning("Attempted to add a WaitForFrames instruction with a negative number.");
+                return this;
+            }
+
             for (int i = 0; i < count; ++i)
             {
                 WaitForFrame();

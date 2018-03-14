@@ -25,7 +25,7 @@ namespace FluentCoroutines
 
         FCBuilder WaitForFrame();
 
-        FCBuilder WaitForFrames(uint count);
+        FCBuilder WaitForFrames(int count);
 
         FCBuilder Yield(YieldInstruction yieldInstruction);
 
