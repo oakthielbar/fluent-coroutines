@@ -3,57 +3,60 @@ using UnityEngine;
 using UnityEngine.UI;
 using FluentCoroutines;
 
-public class BasicExample : MonoBehaviour
+namespace FluentCoroutines.Examples
 {
-	[SerializeField]
-	private Text text;
-
-	[SerializeField]
-	private Color[] colors = new Color[] { Color.red, Color.green, Color.magenta };
-
-	private FluentCoroutine printMessage;
-
-	void Start()
+	public class BasicExample : MonoBehaviour
 	{
-		printMessage = this.FluentCoroutine()
-			.Do(PrintHelloWorld)
-			.WaitForSeconds(0.5f)
-			.Do(CycleColors)
-			.Do(ResetText)
-			.Finalize();
-	}
+		[SerializeField]
+		private Text text;
 
-	public void PrintMessage()
-	{
-		if (!printMessage.IsExecuting)
+		[SerializeField]
+		private Color[] colors = new Color[] { Color.red, Color.green, Color.magenta };
+
+		private FluentCoroutine printMessage;
+
+		void Start()
 		{
-			printMessage.Execute();
+			printMessage = this.FluentCoroutine()
+				.Do(PrintHelloWorld)
+				.WaitForSeconds(0.5f)
+				.Do(CycleColors)
+				.Do(ResetText)
+				.Finalize();
 		}
-	}
 
-	private IEnumerator CycleColors()
-	{
-		foreach (Color c in colors)
+		public void PrintMessage()
 		{
-			text.color = c;
-			yield return new WaitForSeconds(0.5f);
+			if (!printMessage.IsExecuting)
+			{
+				printMessage.Execute();
+			}
 		}
-	}
 
-	private void PrintHelloWorld()
-	{
-		text.text = "Hello, world!";
-	}
+		private IEnumerator CycleColors()
+		{
+			foreach (Color c in colors)
+			{
+				text.color = c;
+				yield return new WaitForSeconds(0.5f);
+			}
+		}
 
-	private void ResetText()
-	{
-		text.text = "";
-		text.color = Color.white;
-	}
+		private void PrintHelloWorld()
+		{
+			text.text = "Hello, world!";
+		}
 
-	public void StopMessage()
-	{
-		printMessage.Stop();
-		ResetText();
+		private void ResetText()
+		{
+			text.text = "";
+			text.color = Color.white;
+		}
+
+		public void StopMessage()
+		{
+			printMessage.Stop();
+			ResetText();
+		}
 	}
 }
