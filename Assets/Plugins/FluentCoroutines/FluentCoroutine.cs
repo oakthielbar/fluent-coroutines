@@ -108,22 +108,22 @@ namespace FluentCoroutines
         {
             foreach (FCInstruction instruction in instructions)
             {
-                switch (instruction.type)
+                switch (instruction.Type)
                 {
                     case FCInstructionType.None:
                         Debug.LogWarning("Attempted to execute a Fluent Coroutine instruction with no instruction type.");
                         break;
                     case FCInstructionType.Yield:
-                        yield return instruction.yield;
+                        yield return instruction.Yield;
                         break;
                     case FCInstructionType.CustomYield:
-                        yield return instruction.customYield;
+                        yield return instruction.EnumeratorFunc();
                         break;
                     case FCInstructionType.Action:
-                        instruction.action();
+                        instruction.Action();
                         break;
                     case FCInstructionType.Coroutine:
-                        Coroutine coroutine = executionContext.StartCoroutine(instruction.coroutine());
+                        Coroutine coroutine = executionContext.StartCoroutine(instruction.EnumeratorFunc());
                         coroutines.Push(coroutine);
                         yield return coroutine;
                         coroutines.Pop();

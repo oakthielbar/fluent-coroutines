@@ -73,7 +73,7 @@ namespace FluentCoroutines
         /// </remarks>
         public FCBuilder Do(Func<IEnumerator> coroutine)
         {
-            Instructions.Add(FCInstruction.Create(coroutine));
+            Instructions.Add(FCInstruction.CreateCoroutine(coroutine));
             return this;
         }
 
@@ -101,8 +101,7 @@ namespace FluentCoroutines
         /// </remarks>
         public FCBuilder WaitUntil(Func<bool> func)
         {
-            CustomYieldInstruction yieldInstruction = new UnityEngine.WaitUntil(func);
-            return Yield(yieldInstruction);
+            return Yield(() =>  new UnityEngine.WaitUntil(func));
         }
 
         /// <summary>
@@ -130,7 +129,7 @@ namespace FluentCoroutines
         public FCBuilder WaitWhile(Func<bool> func)
         {
             CustomYieldInstruction yieldInstruction = new UnityEngine.WaitWhile(func);
-            return Yield(yieldInstruction);
+            return Yield(() => new WaitWhile(func));
         }
 
         /// <summary>
@@ -158,7 +157,7 @@ namespace FluentCoroutines
         public FCBuilder WaitForSecondsRealtime(float seconds)
         {
             WaitForSecondsRealtime wfsrt = new WaitForSecondsRealtime(seconds);
-            return Yield(wfsrt);
+            return Yield(() => new WaitForSecondsRealtime(seconds));
         }
 
         /// <summary>
@@ -219,9 +218,9 @@ namespace FluentCoroutines
         /// <remarks>
         /// See the Unity Scripting API documentation on CustomYieldInstruction for more information.
         /// </remarks>
-        public FCBuilder Yield(IEnumerator yieldInstruction)
+        public FCBuilder Yield(Func<IEnumerator> yieldInstruction)
         {
-            Instructions.Add(FCInstruction.Create(yieldInstruction));
+            Instructions.Add(FCInstruction.CreateYield(yieldInstruction));
             return this;
         }
     }

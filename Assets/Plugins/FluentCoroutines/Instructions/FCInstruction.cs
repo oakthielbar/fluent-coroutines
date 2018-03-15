@@ -20,11 +20,10 @@ namespace FluentCoroutines.Instructions
             }
         }
 
-        public FCInstructionType type { get; protected set; }
-        public YieldInstruction yield { get; protected set; }
-        public IEnumerator customYield { get; protected set; }
-        public Action action { get; protected set; }
-        public Func<IEnumerator> coroutine { get; protected set; }
+        public FCInstructionType Type { get; protected set; }
+        public YieldInstruction Yield { get; protected set; }
+        public Action Action { get; protected set; }
+        public Func<IEnumerator> EnumeratorFunc { get; protected set; }
 
         private FCInstruction() { }
 
@@ -43,42 +42,41 @@ namespace FluentCoroutines.Instructions
         public static FCInstruction Create(YieldInstruction _yield)
         {
             FCInstruction instruction = GetInstruction();
-            instruction.yield = _yield;
-            instruction.type = FCInstructionType.Yield;
-            return instruction;
-        }
-
-        public static FCInstruction Create(IEnumerator _customYield)
-        {
-            FCInstruction instruction = GetInstruction();
-            instruction.customYield = _customYield;
-            instruction.type = FCInstructionType.CustomYield;
+            instruction.Yield = _yield;
+            instruction.Type = FCInstructionType.Yield;
             return instruction;
         }
 
         public static FCInstruction Create(Action _action)
         {
             FCInstruction instruction = GetInstruction();
-            instruction.action = _action;
-            instruction.type = FCInstructionType.Action;
+            instruction.Action = _action;
+            instruction.Type = FCInstructionType.Action;
             return instruction;
         }
 
-        public static FCInstruction Create(Func<IEnumerator> _coroutine)
+        public static FCInstruction CreateCoroutine(Func<IEnumerator> _coroutine)
         {
             FCInstruction instruction = GetInstruction();
-            instruction.coroutine = _coroutine;
-            instruction.type = FCInstructionType.Coroutine;
+            instruction.EnumeratorFunc = _coroutine;
+            instruction.Type = FCInstructionType.Coroutine;
+            return instruction;
+        }
+
+        public static FCInstruction CreateYield(Func<IEnumerator> _customYield)
+        {
+            FCInstruction instruction = GetInstruction();
+            instruction.EnumeratorFunc = _customYield;
+            instruction.Type = FCInstructionType.CustomYield;
             return instruction;
         }
 
         public void Release()
         {
-            yield = null;
-            customYield = null;
-            action = null;
-            coroutine = null;
-            type = FCInstructionType.None;
+            Yield = null;
+            Action = null;
+            EnumeratorFunc = null;
+            Type = FCInstructionType.None;
             pool.Push(this);
         }
     }

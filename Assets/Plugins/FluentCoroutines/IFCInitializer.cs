@@ -29,6 +29,6 @@ namespace FluentCoroutines
 
         FCBuilder Yield(YieldInstruction yieldInstruction);
 
-        FCBuilder Yield(IEnumerator yieldInstruction);
+        FCBuilder Yield(Func<IEnumerator> yieldInstruction);
     }
 }
