@@ -7,14 +7,6 @@ using FluentCoroutines.Instructions;
 
 namespace FluentCoroutines
 {
-    /// <summary>
-    /// FluentCoroutine can be used like coroutines, but they are built using a fluent interface in order
-    /// to facilitate a more semantic coding style. They also remove the need for special coroutine
-    /// functions filled with unwieldy yield stxatements, but they also support those functions for
-    /// users who want to use them (or who want to integrate their existing coroutines with FluentCoroutine).
-    /// FluentCoroutine is great for composing asyncronous behaviors by stitching multiple smaller syncronous
-    /// functions together.
-    /// </summary>
     public class FluentCoroutine : IEnumerable
     {
         public static FluentCoroutine Finalize(FCBuilder builder)
@@ -117,7 +109,7 @@ namespace FluentCoroutines
                         yield return instruction.Yield;
                         break;
                     case FCInstructionType.CustomYield:
-                        yield return instruction.EnumeratorFunc();
+                        yield return instruction.EnumeratorFunc()   ;
                         break;
                     case FCInstructionType.Action:
                         instruction.Action();
