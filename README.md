@@ -5,6 +5,8 @@ Unity3D Coroutine scheduler with a fluent interface.
 Add the contents of the Asset folder to your Unity3D project's Asset folder.
 
 ## Usage
+Note: This was written for a fairly old version of Unity and is not suitable for production use.
+
 Call `this.FluentCoroutine()` inside of any class that inherits from `MonoBehaviour` and chain a few calls to the available methods; once you've defined what you want the `FluentCoroutine` to do, call `Finalize()` to get the completed `FluentCoroutine`. When you want to run it, just call `Execute()` and it will run as a Unity3D Coroutine.
 
 ```csharp
